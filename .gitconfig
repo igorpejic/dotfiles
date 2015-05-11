@@ -1,0 +1,8 @@
+[user]
+	email = igor.pejic@dr.com
+	nmae = ipejic
+	name = Igor Pejic
+[credential]
+	helper = cache --timeout=7200
+[core]
+	editor = vim
