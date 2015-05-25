@@ -11,11 +11,15 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
+" Plugin 'godlygeek/csapprox'
 Plugin 'Valloric/YouCompleteMe'
 
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
+Plugin 'zaki/zazen'
+Plugin 'flazz/vim-colorschemes'
+"Plugin 'scrooloose/syntastic'
 Plugin 'andviro/flake8-vim'
 " plugin from http://vim-scripts.org/vim/scripts.html
 "Plugin 'L9'
@@ -72,7 +76,20 @@ set incsearch
 set ignorecase 
 "set smartcase
 set relativenumber
-syntax on
+syntax off
 set cindent
 
 let g:PyFlakeDisabledMessages = 'E731'
+:nnoremap <Tab> :bnext<CR>
+:nnoremap <S-Tab> :bprevious<CR>
+
+let mapleader=" "
+
+:nnoremap <leader>w :write<CR>
+:nnoremap <leader>n :new<space>
+:nnoremap <leader>e :edit<space>
+:nnoremap <leader>d :bd<CR>
+:nnoremap <leader>q :quit<CR>
+:nnoremap <leader><tab> <C-w><C-w>
+
+set clipboard=unnamedplus
