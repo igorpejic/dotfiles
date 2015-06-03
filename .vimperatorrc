@@ -1,4 +1,0 @@
-noremap h gT
-noremap l gt
-imap jk <esc>
-set hintchars=asdfjk;

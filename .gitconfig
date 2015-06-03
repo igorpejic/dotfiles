@@ -1,8 +1,26 @@
 [user]
 	email = igor.pejic@dr.com
-	nmae = ipejic
 	name = Igor Pejic
-[credential]
-	helper = cache --timeout=7200
+
+[alias]
+    st = status
+    ci = commit
+    co = checkout
+[diff]
+    tool = icdiff
+    guitool = diffmerge
+[difftool "icdiff"]
+    cmd = icdiff \"$LOCAL\" \"$REMOTE\"
+[difftool "diffmerge"]
+    cmd = diffmerge \"$LOCAL\" \"$REMOTE\"
+[merge]
+    tool = diffmerge
+[mergetool "diffmerge"]
+    cmd = diffmerge --merge --result=\"$MERGED\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"
+    trustexitcode = true
+[color]
+    ui = true
 [core]
-	editor = vim
+    editor = /usr/bin/vim
+[push]
+    default = simple
