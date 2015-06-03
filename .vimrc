@@ -34,6 +34,7 @@ Bundle 'christoomey/vim-tmux-navigator'
 "Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 " Avoid a name conflict with L9
 "Plugin 'user/L9', {'name': 'newL9'}
+Plugin 'kien/ctrlp.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -43,9 +44,11 @@ filetype plugin indent on    " required
 "
 " Brief help
 " :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginInstall    - installs plugins;
+" append `!` to update or just :PluginUpdate
 " :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+" :PluginClean      - confirms removal of 
+" unused plugins; append `!` to auto-approve removal
 "
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
@@ -93,3 +96,29 @@ let mapleader=" "
 :nnoremap <leader><tab> <C-w><C-w>
 
 set clipboard=unnamedplus
+
+" CtrlP config
+let g:ctrlp_custom_ignore = {
+    \ 'dir':  '\v[\/](\.git|\.hg|\.svn|htmlcov|build|_build)$',
+    \ 'file': '\v\.(so|pyc)$',
+    \ }
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+
+
+" Damian Conway's Die Blinkënmatchen: highlight matches
+nnoremap <silent> n n:call HLNext(0.1)<cr>
+nnoremap <silent> N N:call HLNext(0.1)<cr>
+
+function! HLNext (blinktime)
+  let target_pat = '\c\%#'.@/
+  let ring = matchadd('ErrorMsg', target_pat, 101)
+  redraw
+  exec 'sleep ' . float2nr(a:blinktime * 1000) . 'm'
+  call matchdelete(ring)
+  redraw
+endfunction
+
+" 80 column limit
+highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+match OverLength /\%80v.\+/
