@@ -1,8 +1,8 @@
+# PUT INTO: ~/.oh-my-zsh/lib/
+
 # http://zsh.sourceforge.net/Doc/Release/Zsh-Line-Editor.html
 # http://zsh.sourceforge.net/Doc/Release/Zsh-Line-Editor.html#Zle-Builtins
 # http://zsh.sourceforge.net/Doc/Release/Zsh-Line-Editor.html#Standard-Widgets
-
-# put into ~/.oh-my-zsh/lib/
 
 # Make sure that the terminal is in application mode when zle is active, since
 # only then values from $terminfo are valid
@@ -88,5 +88,5 @@ bindkey -e  ## emacs key bindings
 #bindkey -s '^[[Z' '\t'
 #
 
-bindkey "^P" up-line-or-search
-bindkey "^N" down-line-or-search
+bindkey "^P" history-beginning-search-backward
+bindkey "^N" history-beginning-search-forward

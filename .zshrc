@@ -1,3 +1,4 @@
+# PUT INTO: $HOME
 # Path to your oh-my-zsh installation.
 export ZSH=/home/igor/.oh-my-zsh
 
@@ -49,7 +50,7 @@ ZSH_THEME="simple"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=()
 
 # User configuration
 
@@ -93,3 +94,7 @@ source /home/igor/ave.sh
 
 ### screen ####
 ~/.screenlayout/monitor.sh
+export PATH=/home/igor/bin:$PATH
+
+# For skype webcam
+export XLIB_SKIP_ARGB_VISUALS=1
