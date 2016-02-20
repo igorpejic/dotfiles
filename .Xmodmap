@@ -1,5 +1,5 @@
-# PUT INTO: $HOME
-# maps caps lock into "WIN_KEY"
+! PUT INTO: $HOME
+! maps caps lock into "WIN_KEY"
 
 clear control
 keycode 66 = Super_L
