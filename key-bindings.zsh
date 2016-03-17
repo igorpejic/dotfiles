@@ -88,5 +88,10 @@ bindkey -e  ## emacs key bindings
 #bindkey -s '^[[Z' '\t'
 #
 
-bindkey "^P" history-beginning-search-backward
-bindkey "^N" history-beginning-search-forward
+
+if [[ "${terminfo[kcuu1]}" != "" ]]; then
+  bindkey "^P" history-substring-search-up
+fi
+if [[ "${terminfo[kcud1]}" != "" ]]; then
+  bindkey "^N" history-substring-search-down
+fi
