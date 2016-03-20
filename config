@@ -69,7 +69,7 @@ bindsym $mod+a focus parent
 # focus the child container
 #bindsym $mod+d focus child
 
-set $workspace1 "1: Chromium "
+set $workspace1 "1"
 set $workspace10 "10: Thunderbird "
 
 
