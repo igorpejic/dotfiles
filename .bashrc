@@ -138,3 +138,9 @@ bind '"\e[A"':history-search-backward
 bind '"\e[B"':history-search-forward
 bind '"\M-w"':"\"\C-k\C-ahistory | grep '^ *[0-9]* *\C-e.'\C-m\""
 bind Space:magic-space
+
+
+export GIT_AUTHOR_NAME=Igor Pejic
+export GIT_COMMITTER_NAME=Igor Pejic
+export GIT_COMMITTER_EMAIL=igor.pejic@dr.com
+export GIT_AUTHOR_EMAIL=igor.pejic@dr.com
