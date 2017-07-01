@@ -3,34 +3,36 @@ set nocompatible              " be iMproved, required
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
+call plug#begin('~/.vim/plugged')
 " set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+" set rtp+=~/.vim/bundle/Vundle.vim
+" call vundle#begin()
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
 
 " let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
+Plug 'gmarik/Vundle.vim'
+Plug 'Vimjas/vim-python-pep8-indent'
+
 " Plugin 'godlygeek/csapprox'
 " Plugin 'Valloric/YouCompleteMe'
-Plugin 'Shougo/neocomplete.vim'
-" Plugin 'takac/vim-hardtime'
+" Plugin 'Shougo/deoplete.vim'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" Plug 'takac/vim-hardtime'
 let g:hardtime_default_on = 1
 
+Plug 'mileszs/ack.vim'
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
-"
-Plugin 'Vimjas/vim-python-pep8-indent'
-Plugin 'zaki/zazen'
-Plugin 'flazz/vim-colorschemes'
-Plugin 'ivanov/vim-ipython'
+Plug 'zaki/zazen'
+Plug 'flazz/vim-colorschemes'
 " THIS IS BEAST
-Plugin 'alfredodeza/khuno.vim'
+Plug 'alfredodeza/khuno.vim'
 " plugin from http://vim-scripts.org/vim/scripts.html
 "Plugin 'L9'
 " Git plugin not hosted on GitHub
-Bundle 'christoomey/vim-tmux-navigator'
+" Bundle 'christoomey/vim-tmux-navigator'
 "Bundle "wookiehangover/jshint.vim"
 " git repos on your local machine (i.e. when working on your own plugin)
 "Plugin 'file:///home/gmarik/path/to/plugin'
@@ -39,31 +41,32 @@ Bundle 'christoomey/vim-tmux-navigator'
 "Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 " Avoid a name conflict with L9
 "Plugin 'user/L9', {'name': 'newL9'}
-Plugin 'kien/ctrlp.vim'
+Plug 'kien/ctrlp.vim'
+Plug 'bfredl/nvim-ipy'
 
 """"""""""""""""""""""" Syntastic
-Plugin 'vim-syntastic/syntastic'
-let g:syntastic_javascript_eslint_exe = '$(npm bin)/eslint'
-let g:syntastic_mode_map = { 'passive_filetypes': ['python'] }
-let g:syntastic_check_on_wq = 1
-let g:syntastic_javascript_checkers = ['eslint']
+Plug 'neomake/neomake'
+Plug 'jaawerth/nrun.vim'
 
-let g:syntastic_error_symbol = '❌'
-let g:syntastic_style_error_symbol = '⁉️'
-let g:syntastic_warning_symbol = '⚠️'
-let g:syntastic_style_warning_symbol = '💩'
+call plug#end()
+call deoplete#enable()
 
-highlight link SyntasticErrorSign SignColumn
-highlight link SyntasticWarningSign SignColumn
-highlight link SyntasticStyleErrorSign SignColumn
-highlight link SyntasticStyleWarningSign SignColumn
-"""""""""""""""""""""""""""
+" Run NeoMake on read and write operations
+autocmd! BufReadPost,BufWritePost * Neomake
 
-let g:tomorrow_termcolors=256
+let g:neomake_javascript_enabled_makers = ['eslint']
+
+" when switching/opening a JS buffer, set neomake's eslint path, and enable it as a maker
+au BufEnter *.js let b:neomake_javascript_eslint_exe = nrun#Which('eslint')
+
+""""""""""""""""""""""""""" 
+
+" let g:tomorrow_termcolors=256
 colorscheme tomorrow
+" set termguicolors
 
 " All of your Plugins must be added before the following line
-call vundle#end()            " required
+" call vundle#end()            " required
 filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
 "filetype plugin on
@@ -95,6 +98,7 @@ set softtabstop=4
 set expandtab
 set backspace=indent,eol,start
 "set hlsearch
+set nohlsearch
 set wrap
 set linebreak
 set nolist
@@ -105,7 +109,7 @@ set ignorecase
 "set smartcase
 set relativenumber
 syntax on
-set cindent
+"set cindent
 
 :nnoremap <Tab> :bnext<CR>
 :nnoremap <S-Tab> :bprevious<CR>
@@ -152,36 +156,34 @@ autocmd Filetype javascript setlocal ts=2 sts=2 sw=2
 autocmd Filetype html setlocal ts=2 sts=2 sw=2
 
 
-" TRYING OUT
-
 "
-"Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
+" Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
 " Disable AutoComplPop.
-let g:acp_enableAtStartup = 0
-" Use neocomplete.
-let g:neocomplete#enable_at_startup = 1
+" let g:acp_enableAtStartup = 0
+" Use deoplete.
+" let g:deoplete#enable_at_startup = 1
 " Use smartcase.
-let g:neocomplete#enable_smart_case = 1
+let g:deoplete#enable_smart_case = 1
 " Set minimum syntax keyword length.
-let g:neocomplete#sources#syntax#min_keyword_length = 3
-let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+let g:deoplete#sources#syntax#min_keyword_length = 3
+let g:deoplete#lock_buffer_name_pattern = '\*ku\*'
 
 " Define dictionary.
-let g:neocomplete#sources#dictionary#dictionaries = {
-    \ 'default' : '',
-    \ 'vimshell' : $HOME.'/.vimshell_hist',
-    \ 'scheme' : $HOME.'/.gosh_completions'
-        \ }
-
+let g:deoplete#sources#dictionary#dictionaries = {
+\ 'default' : '',
+\ 'vimshell' : $HOME.'/.vimshell_hist',
+\ 'scheme' : $HOME.'/.gosh_completions'
+\ }
+" 
 " Define keyword.
-if !exists('g:neocomplete#keyword_patterns')
-    let g:neocomplete#keyword_patterns = {}
+if !exists('g:deoplete#keyword_patterns')
+    let g:deoplete#keyword_patterns = {}
 endif
-let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-
-" Plugin key-mappings.
-inoremap <expr><C-g>     neocomplete#undo_completion()
-inoremap <expr><C-l>     neocomplete#complete_common_string()
+let g:deoplete#keyword_patterns['default'] = '\h\w*'
+" 
+" " Plugin key-mappings.
+inoremap <expr><C-g>     deoplete#undo_completion()
+inoremap <expr><C-l>     deoplete#complete_common_string()
 
 " Recommended key-mappings.
 " <CR>: close popup and save indent.
@@ -194,8 +196,8 @@ endfunction
 " <TAB>: completion.
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 " <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> deoplete#smart_close_popup()."\<C-h>"
 " Close popup by <Space>.
 "inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
 
@@ -207,18 +209,43 @@ autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
 " Enable heavy omni completion.
-if !exists('g:neocomplete#sources#omni#input_patterns')
-  let g:neocomplete#sources#omni#input_patterns = {}
+if !exists('g:deoplete#sources#omni#input_patterns')
+  let g:deoplete#sources#omni#input_patterns = {}
 endif
-"let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-"let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-"let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+"let g:deoplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+"let g:deoplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+"let g:deoplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 
 " For perlomni.vim setting.
 " https://github.com/c9s/perlomni.vim
-let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-" Disable the window
+" let g:deoplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+" " Disable the window
 set completeopt-=preview
 
-"ctrlP
+
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+
+" Ipython with vim = BEAST
+let g:nvim_ipy_perform_mappings = 0
+map <silent> <C-s> <Plug>(IPy-Run)
+map <silent> <C-/> <Plug>(IPy-WordObjInfo)
+
+
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+" always split windows vertically
+"
+set splitright
+set splitbelow
+hi clear SpellBad
+
+" ctrlP
 let g:ctrlp_custom_ignore = { 'dir': 'build$\|node_modules$' }
+let g:ackprg = 'ag --nogroup --nocolor --column'
