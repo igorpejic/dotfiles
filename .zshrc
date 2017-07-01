@@ -54,7 +54,7 @@ plugins=(history-substring-search)
 
 # User configuration
 
-export PATH="/home/igor/.virtualenvs/bbet/bin:/home/igor/.rbenv/plugins/ruby-build/bin:/home/igor/.rbenv/shims:/home/igor/.rbenv/bin:/home/igor/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
+export PATH="/home/igor/.rbenv/plugins/ruby-build/bin:/home/igor/.rbenv/shims:/home/igor/.rbenv/bin:/home/igor/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -98,3 +98,12 @@ export PATH=/home/igor/bin:$PATH
 
 # For skype webcam
 export XLIB_SKIP_ARGB_VISUALS=1
+
+alias slock="/home/igor/lock.sh"
+alias ni=nvim
+
+export VISUAL=vim
+export EDITOR="$VISUAL"
+
+export PATH=/usr/local/cuda-8.0/bin${PATH:+:${PATH}}
+export LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
