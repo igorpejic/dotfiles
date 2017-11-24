@@ -22,6 +22,7 @@ let g:hardtime_default_on = 1
 " plugin on GitHub repo
 "
 Plugin 'Vimjas/vim-python-pep8-indent'
+Plugin 'mxw/vim-jsx'
 Plugin 'zaki/zazen'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'ivanov/vim-ipython'
@@ -57,7 +58,8 @@ highlight link SyntasticErrorSign SignColumn
 highlight link SyntasticWarningSign SignColumn
 highlight link SyntasticStyleErrorSign SignColumn
 highlight link SyntasticStyleWarningSign SignColumn
-"""""""""""""""""""""""""""
+""""""""""""""""""""""""""" 
+let g:jsx_ext_required = 0
 
 let g:tomorrow_termcolors=256
 colorscheme tomorrow
