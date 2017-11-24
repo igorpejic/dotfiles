@@ -14,6 +14,9 @@ call plug#begin('~/.vim/plugged')
 Plug 'gmarik/Vundle.vim'
 Plug 'Vimjas/vim-python-pep8-indent'
 
+Plug 'xolox/vim-misc'
+"Plug 'xolox/vim-easytags'
+
 " Plugin 'godlygeek/csapprox'
 " Plugin 'Valloric/YouCompleteMe'
 " Plugin 'Shougo/deoplete.vim'
@@ -42,17 +45,23 @@ Plug 'alfredodeza/khuno.vim'
 " Avoid a name conflict with L9
 "Plugin 'user/L9', {'name': 'newL9'}
 Plug 'kien/ctrlp.vim'
+
 Plug 'bfredl/nvim-ipy'
 
 """"""""""""""""""""""" Syntastic
 Plug 'neomake/neomake'
 Plug 'jaawerth/nrun.vim'
+"Plug 'mxw/vim-jsx'
 
 call plug#end()
 call deoplete#enable()
 
+" vim-jx
+let g:jsx_ext_required = 0
+
 " Run NeoMake on read and write operations
 autocmd! BufReadPost,BufWritePost * Neomake
+
 
 let g:neomake_javascript_enabled_makers = ['eslint']
 
@@ -153,11 +162,14 @@ endfunction
 " match OverLength /\%10v.\+/
 
 autocmd Filetype javascript setlocal ts=2 sts=2 sw=2
+au FileType yaml setlocal tabstop=2 expandtab shiftwidth=2 softtabstop=2
 autocmd Filetype html setlocal ts=2 sts=2 sw=2
 
 
+" TRYING OUT
+
 "
-" Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
+"Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
 " Disable AutoComplPop.
 " let g:acp_enableAtStartup = 0
 " Use deoplete.
@@ -249,3 +261,5 @@ hi clear SpellBad
 " ctrlP
 let g:ctrlp_custom_ignore = { 'dir': 'build$\|node_modules$' }
 let g:ackprg = 'ag --nogroup --nocolor --column'
+
+set title
