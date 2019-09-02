@@ -7,6 +7,10 @@ export ZSH=/home/igor/.oh-my-zsh
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
 ZSH_THEME="simple"
+TERMINAL=urxvt
+
+# fixed pdb cannot delete bug
+TERM=xterm
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -54,7 +58,7 @@ plugins=(history-substring-search)
 
 # User configuration
 
-export PATH="/home/igor/.rbenv/plugins/ruby-build/bin:/home/igor/.rbenv/shims:/home/igor/.rbenv/bin:/home/igor/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
+export PATH="/home/igor/.rbenv/plugins/ruby-build/bin:/home/igor/.rbenv/shims:/home/igor/.rbenv/bin:/home/igor/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/opt/apache-maven-3.5.4/bin:"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -85,6 +89,9 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 ##
 
+# speed
+xset r rate 220 40
+
 ##### ave ###
 # define directory to put virtual environments
 export WORKON_HOME=~/.virtualenvs
@@ -93,17 +100,46 @@ export WORKON_HOME=~/.virtualenvs
 source /home/igor/ave.sh
 
 ### screen ####
-~/.screenlayout/monitor.sh
+# ~/.screenlayout/monitor.sh
 export PATH=/home/igor/bin:$PATH
 
 # For skype webcam
 export XLIB_SKIP_ARGB_VISUALS=1
 
 alias slock="/home/igor/lock.sh"
+alias slock="/home/igor/lock.sh"
 alias ni=nvim
 
 export VISUAL=vim
 export EDITOR="$VISUAL"
 
-export PATH=/usr/local/cuda-8.0/bin${PATH:+:${PATH}}
-export LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+export PATH=/usr/local/cuda-9.0/bin${PATH:+:${PATH}}
+export PATH=$PATH:/snap/bin
+
+export LD_LIBRARY_PATH=/usr/local/cuda-9.0/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+
+export PATH=/home/igor/miniconda3/bin:$PATH
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/igor/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/igor/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/igor/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/igor/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# <<< conda initialize <<<
+
+~/.xinitrc
+IMAGE_STORAGE_PATH=~/mnlth_images
+
+alias i3lock="i3lock -c 000000"
+alias ag='ag --hidden --ignore=tags.swp'
