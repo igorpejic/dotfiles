@@ -21,7 +21,7 @@ filetype off                  " required
 let g:jsx_ext_required = 0
 
 let g:tomorrow_termcolors=256
-colorscheme tomorrow
+"colorscheme tomorrow
 
 call plug#begin('~/.vim/plugged')
 " Plug 'takac/vim-hardtime'
@@ -29,8 +29,13 @@ call plug#begin('~/.vim/plugged')
 "
 Plug 'Shougo/deoplete.nvim'
 Plug 'roxma/nvim-yarp'
+Plug 'gabesoft/vim-ags'
 Plug 'roxma/vim-hug-neovim-rpc'
 Plug 'heavenshell/vim-pydocstring'
+Plug 'vim-airline/vim-airline'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-surround'
+Plug 'scrooloose/nerdtree'
 
 Plug 'w0rp/ale'
 Plug 'Vimjas/vim-python-pep8-indent'
@@ -39,10 +44,13 @@ Plug 'zaki/zazen'
 Plug 'flazz/vim-colorschemes'
 Plug 'ivanov/vim-ipython'
 
+Plug 'elixir-editors/vim-elixir'
+Plug 'ycm-core/YouCompleteMe'
+
 Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
 Plug 'heavenshell/vim-pydocstring'
-Plug 'alfredodeza/khuno.vim'
+"Plug 'alfredodeza/khuno.vim'
 "Bundle "wookiehangover/jshint.vim"
 Plug 'kien/ctrlp.vim'
 call plug#end()
@@ -53,6 +61,28 @@ let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
 inoremap jk 
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
+
+" airline
+"let g:airline_mode_map = {
+"    \ '__' : '-',
+"    \ 'n'  : 'N',
+"    \ 'i'  : 'I',
+"    \ 'R'  : 'R',
+"    \ 'c'  : 'C',
+"    \ 'v'  : 'V',
+"    \ 'V'  : 'V',
+"    \ '' : 'V',
+"    \ 's'  : 'S',
+"    \ }
+"
+" remove the filetype part
+let g:airline_section_x=''
+let g:airline_section_a=''
+let g:airline_section_y=''
+let g:airline_section_z=''
+let g:airline#extensions#tabline#enabled = 1
+" remove separators for empty sections
+" let g:airline_skip_empty_sections = 1
 
 set pastetoggle=<F8>
 set encoding=utf-8
@@ -98,6 +128,11 @@ let g:ctrlp_custom_ignore = {
     \ }
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
+
+let g:ctrlp_match_window='min:4,max:499'
+
+"ags
+:nnoremap <leader>s :Ags<Space>
 
 
 " Damian Conway's Die Blinkënmatchen: highlight matches
@@ -218,6 +253,7 @@ autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 " Disable the window
 set completeopt-=preview
 
+colorscheme Monokai
 "ctrlP
 let g:ctrlp_custom_ignore = { 'dir': 'build$\|node_modules$' }
 
@@ -243,3 +279,12 @@ nnoremap <leader>an :ALENextWrap<cr>
 nnoremap <leader>ap :ALEPreviousWrap<cr>
 autocmd FileType yml setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+autocmd FileType exs setlocal ts=2 sts=2 sw=2 expandtab
+
+" ctags
+set tags+=./.git/tags;,tags.swp
+
+" ale
+" upgrade vim: https://github.com/dense-analysis/ale/issues/1334
+let g:ale_echo_cursor = 0
