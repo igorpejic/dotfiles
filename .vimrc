@@ -27,16 +27,18 @@ call plug#begin('~/.vim/plugged')
 " Plug 'takac/vim-hardtime'
 " let g:hardtime_default_on = 1
 "
-Plug 'Shougo/deoplete.nvim'
+"Plug 'Shougo/deoplete.nvim'
 Plug 'roxma/nvim-yarp'
+Plug 'igorpejic/vim-black'
 Plug 'gabesoft/vim-ags'
 Plug 'roxma/vim-hug-neovim-rpc'
 Plug 'heavenshell/vim-pydocstring'
 Plug 'vim-airline/vim-airline'
-Plug 'tpope/vim-surround'
+Plug 'wakatime/vim-wakatime'
 Plug 'tpope/vim-surround'
 Plug 'scrooloose/nerdtree'
 
+Plug 'tpope/vim-fugitive'
 Plug 'w0rp/ale'
 Plug 'Vimjas/vim-python-pep8-indent'
 Plug 'mxw/vim-jsx'
@@ -57,10 +59,9 @@ call plug#end()
 
 filetype plugin indent on    " required
 
-let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
 inoremap jk 
-let g:ycm_autoclose_preview_window_after_completion = 1
-let g:ycm_autoclose_preview_window_after_insertion = 1
+"let g:ycm_autoclose_preview_window_after_completion = 1
+"let g:ycm_autoclose_preview_window_after_insertion = 1
 
 " airline
 "let g:airline_mode_map = {
@@ -85,6 +86,7 @@ let g:airline#extensions#tabline#enabled = 1
 " let g:airline_skip_empty_sections = 1
 
 set pastetoggle=<F8>
+set mouse=a
 set encoding=utf-8
 set showcmd
 set textwidth=79
@@ -266,6 +268,13 @@ hi SpellBad cterm=underline
 let g:ale_linters = {
 \  'javascript': ['flow']
 \}
+
+let g:ale_fixers = {
+\   'javascript': ['prettier'],
+\   'css': ['prettier'],
+\}
+let g:ale_fix_on_save = 1
+
 highlight clear ALEErrorSign " otherwise uses error bg color (typically red)
 highlight clear ALEWarningSign " otherwise uses error bg color (typically red)
 let g:ale_sign_error = 'X' " could use emoji
@@ -280,11 +289,18 @@ nnoremap <leader>ap :ALEPreviousWrap<cr>
 autocmd FileType yml setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+autocmd FileType css setlocal ts=2 sts=2 sw=2 expandtab
+autocmd FileType scss setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType exs setlocal ts=2 sts=2 sw=2 expandtab
 
 " ctags
-set tags+=./.git/tags;,tags.swp
+set tags+=./.git/tags;,tags.swp;/
 
-" ale
-" upgrade vim: https://github.com/dense-analysis/ale/issues/1334
-let g:ale_echo_cursor = 0
+
+" abbreviations
+ab yeraclass yearclass
+ab yearlcass yearclass
+ab yearlcass yearclass
+ab importpdb import pdb; pdb.set_trace()
+
+autocmd BufWritePost *.py execute ':Black'
