@@ -27,19 +27,24 @@ call plug#begin('~/.vim/plugged')
 " Plug 'takac/vim-hardtime'
 " let g:hardtime_default_on = 1
 "
-"Plug 'Shougo/deoplete.nvim'
+"autocopmlete
+
+"Plug 'vim-denops/denops.vim'
+" Plug 'Shougo/ddc.vim'
+Plug 'ycm-core/YouCompleteMe'
+
+
 Plug 'roxma/nvim-yarp'
-Plug 'igorpejic/vim-black'
+Plug 'prettier/vim-prettier'
+Plug 'lervag/vimtex'
+Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
 Plug 'gabesoft/vim-ags'
-Plug 'roxma/vim-hug-neovim-rpc'
 Plug 'heavenshell/vim-pydocstring'
 Plug 'vim-airline/vim-airline'
-Plug 'wakatime/vim-wakatime'
 Plug 'tpope/vim-surround'
-Plug 'scrooloose/nerdtree'
+Plug 'psf/black'
 
-Plug 'tpope/vim-fugitive'
-Plug 'w0rp/ale'
+" Plug 'w0rp/ale'
 Plug 'Vimjas/vim-python-pep8-indent'
 Plug 'mxw/vim-jsx'
 Plug 'zaki/zazen'
@@ -47,7 +52,7 @@ Plug 'flazz/vim-colorschemes'
 Plug 'ivanov/vim-ipython'
 
 Plug 'elixir-editors/vim-elixir'
-Plug 'ycm-core/YouCompleteMe'
+" Plug 'ycm-core/YouCompleteMe'
 
 Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
@@ -59,9 +64,10 @@ call plug#end()
 
 filetype plugin indent on    " required
 
+let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
 inoremap jk 
-"let g:ycm_autoclose_preview_window_after_completion = 1
-"let g:ycm_autoclose_preview_window_after_insertion = 1
+let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ycm_autoclose_preview_window_after_insertion = 1
 
 " airline
 "let g:airline_mode_map = {
@@ -86,7 +92,6 @@ let g:airline#extensions#tabline#enabled = 1
 " let g:airline_skip_empty_sections = 1
 
 set pastetoggle=<F8>
-set mouse=a
 set encoding=utf-8
 set showcmd
 set textwidth=79
@@ -158,104 +163,15 @@ autocmd Filetype javascript setlocal ts=2 sts=2 sw=2
 autocmd Filetype html setlocal ts=2 sts=2 sw=2
 
 
-" Deoplete settings
-" - «Deoplete requires Neovim with Python3 enabled»
-let g:python3_host_prog       = '/usr/bin/python3'
-let g:python3_host_skip_check = 1
 
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#enable_smart_case = 1
-let g:deoplete#omni#functions    = {}
+
 
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
-" Python autocompletion
-let g:deoplete#sources#jedi#show_docstring = 1
-
-" Go autocompletion
-let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
-let g:deoplete#sources#go#sort_class    = ['package', 'func', 'type', 'var', 'const']
-let g:deoplete#sources#go#use_cache     = 1
-
-" Javascript autocompletion
-let g:deoplete#omni#functions.javascript = [
-	\ 'tern#Complete',
-	\ 'jspc#omni',
-	\ ]
 
 
-"
-"Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
-" Disable AutoComplPop.
-let g:acp_enableAtStartup = 0
-" Use neocomplete.
-let g:deoplete#enable_at_startup = 1
-" Use smartcase.
-let g:deoplete#enable_smart_case = 1
-let g:deoplete#omni#functions.javascript = [
-	\ 'tern#Complete',
-	\ 'jspc#omni',
-	\ ]
-" Set minimum syntax keyword length.
-"let g:deoplete#sources#syntax#min_keyword_length = 3
-"let g:deoplete#lock_buffer_name_pattern = '\*ku\*'
-
-" Define dictionary.
-"let g:deoplete#sources#dictionary#dictionaries = {
-"    \ 'default' : '',
-"    \ 'vimshell' : $HOME.'/.vimshell_hist',
-"    \ 'scheme' : $HOME.'/.gosh_completions'
-"        \ }
-"
-"" Define keyword.
-"if !exists('g:deoplete#keyword_patterns')
-"    let g:deoplete#keyword_patterns = {}
-"endif
-"let g:deoplete#keyword_patterns['default'] = '\h\w*'
-"
-"" Plugin key-mappings.
-"inoremap <expr><C-g>     deoplete#undo_completion()
-"inoremap <expr><C-l>     deoplete#complete_common_string()
-
-" Recommended key-mappings.
-" <CR>: close popup and save indent.
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-  return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
-  " For no inserting <CR> key.
-  "return pumvisible() ? "\<C-y>" : "\<CR>"
-endfunction
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" <C-h>, <BS>: close popup and delete backword char.
-"inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
-"inoremap <expr><BS> deoplete#smart_close_popup()."\<C-h>"
-" Close popup by <Space>.
-"inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
-
-" Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
-" Enable heavy omni completion.
-"if !exists('g:deoplete#sources#omni#input_patterns')
-  "let g:deoplete#sources#omni#input_patterns = {}
-"endif
-"let g:deoplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-"let g:deoplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-"let g:deoplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-
-" For perlomni.vim setting.
-" https://github.com/c9s/perlomni.vim
-"let g:deoplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-" Disable the window
-set completeopt-=preview
-
-colorscheme Monokai
+"colorscheme Monokai
 "ctrlP
 let g:ctrlp_custom_ignore = { 'dir': 'build$\|node_modules$' }
 
@@ -268,13 +184,6 @@ hi SpellBad cterm=underline
 let g:ale_linters = {
 \  'javascript': ['flow']
 \}
-
-let g:ale_fixers = {
-\   'javascript': ['prettier'],
-\   'css': ['prettier'],
-\}
-let g:ale_fix_on_save = 1
-
 highlight clear ALEErrorSign " otherwise uses error bg color (typically red)
 highlight clear ALEWarningSign " otherwise uses error bg color (typically red)
 let g:ale_sign_error = 'X' " could use emoji
@@ -289,18 +198,77 @@ nnoremap <leader>ap :ALEPreviousWrap<cr>
 autocmd FileType yml setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
-autocmd FileType css setlocal ts=2 sts=2 sw=2 expandtab
-autocmd FileType scss setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType exs setlocal ts=2 sts=2 sw=2 expandtab
 
 " ctags
-set tags+=./.git/tags;,tags.swp;/
+set tags+=./.git/tags;,tags.swp
+
+" ale
+" upgrade vim: https://github.com/dense-analysis/ale/issues/1334
+let g:ale_echo_cursor = 0
 
 
-" abbreviations
-ab yeraclass yearclass
-ab yearlcass yearclass
-ab yearlcass yearclass
-ab importpdb import pdb; pdb.set_trace()
+" latex
+let g:Tex_GotoError = 0
+"let g:Tex_ShowErrorContext = 0
+let g:Tex_MultipleCompileFormats='pdf,bib,pdf'
+let g:vimtex_matchparen_enabled=0
 
-autocmd BufWritePost *.py execute ':Black'
+"let g:tex_flavor = 'context'
+let g:vimtex_view_method = 'mupdf'
+
+" post install (yarn install | npm install) then load plugin only for editing supported files
+Plug 'prettier/vim-prettier', {
+  \ 'do': 'yarn install',
+  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml'] }
+let g:prettier#autoformat = 0
+autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml Prettier
+
+colorscheme ChocolateLiquor
+
+" Matchit already installed in newer versions of vim.
+" Don't need to add this onto pathogen bundle folder. We only need
+" to configure it.
+" Configure matchit so that it goes from opening tag to closing tag
+au FileType html,eruby,rb,css,js,xml runtime! macros/matchit.vim
+
+
+" Black autosave autofix
+"augroup black_on_save
+"  autocmd!
+"  autocmd BufWritePre *.py Black
+"augroup end
+"
+"
+" LSP AUTOCOMPLETION
+if executable('pylsp')
+    " pip install python-lsp-server
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'pylsp',
+        \ 'cmd': {server_info->['pylsp']},
+        \ 'allowlist': ['python'],
+        \ })
+endif
+
+function! s:on_lsp_buffer_enabled() abort
+    setlocal omnifunc=lsp#complete
+    setlocal signcolumn=yes
+    if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+    nmap <buffer> gd <plug>(lsp-definition)
+    nmap <buffer> gs <plug>(lsp-document-symbol-search)
+    nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
+    nmap <buffer> gr <plug>(lsp-references)
+    nmap <buffer> gi <plug>(lsp-implementation)
+    nmap <buffer> gt <plug>(lsp-type-definition)
+    nmap <buffer> <leader>rn <plug>(lsp-rename)
+    nmap <buffer> [g <plug>(lsp-previous-diagnostic)
+    nmap <buffer> ]g <plug>(lsp-next-diagnostic)
+    nmap <buffer> K <plug>(lsp-hover)
+    nnoremap <buffer> <expr><c-f> lsp#scroll(+4)
+    nnoremap <buffer> <expr><c-d> lsp#scroll(-4)
+
+    let g:lsp_format_sync_timeout = 1000
+    autocmd! BufWritePre *.rs,*.go call execute('LspDocumentFormatSync')
+    
+    " refer to doc to add more commands
+endfunction
