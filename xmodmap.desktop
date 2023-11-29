@@ -1,0 +1,8 @@
+# Put into ~/.config/autostart/
+[Desktop Entry]
+Name=Xmodmap
+Exec=xmodmap /home/igor/.Xmodmap
+Terminal=false
+Type=Application
+X-GNOME-Autostart-Delay=1
+X-GNOME-Autostart-enabled=true
