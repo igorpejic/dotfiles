@@ -101,6 +101,8 @@ bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace $workspace10
 bindsym $mod+Shift+f exec "firefox"
+bindsym $mod+Shift+b exec "brave-browser"
+bindsym $mod+Shift+g exec "google-chrome-stable"
 
 
 
@@ -153,6 +155,7 @@ exec_always $HOME/.screenlayout/monitor.sh
 
 # startup programs
 exec_always $HOME/.startup-programs.sh
+bindsym $mod+Shift+i exec $HOME/.startup-programs.sh
 exec_always --no-startup-id xsetroot -solid "#4BABA2"
 exec_always feh --bg-scale /home/igor/background.jpg
 
