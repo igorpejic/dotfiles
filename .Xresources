@@ -74,7 +74,6 @@ URxvt.italicFont: xft:Monospace:style=Italic:size=12
 URxvt.boldItalicfont: xft:Monospace:style=BoldItalic:size=12
 URxvt.letterSpace: 0
 URxvt.lineSpace: 0
-URxvt.geometry: 92x24
 !URxvt.internalBorder: 24
 URxvt.cursorBlink: true
 URxvt.cursorUnderline: false
@@ -86,7 +85,7 @@ URxvt.urgentOnBell: true
 URxvt.iso14755: false
 
 !! Extensions
-URxvt.perl-ext-common:	default,matcher,url-select,keyboard-select,font-size,-confirm-paste
+URxvt.perl-ext-common:	default,matcher,keyboard-select,font-size,-confirm-paste
 URxvt.colorUL:		#4682B4
 !! url-select
 URxvt.keysym.M-u:	perl:url-select:select_next
@@ -151,3 +150,8 @@ URxvt.color10: #D08770
 ! white
 URxvt.color7:  #E5E9F0
 URxvt.color15: #8FBCBB
+
+
+! until https://bbs.archlinux.org/viewtopic.php?id=282791 is fixed
+! prevent starting in middle of screen
+URxvt.geometry: 400x400
