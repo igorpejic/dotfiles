@@ -17,3 +17,6 @@ https://ohmyz.sh/
 
 ### File editor
 https://www.vim.org/
+
+### Backlight
+https://gitlab.com/wavexx/acpilight

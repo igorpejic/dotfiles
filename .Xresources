@@ -40,8 +40,8 @@ URxvt.keysym.C-slash:  font-size:show
 *.color8: #4a697d
 
 ! red
-*.color1: #d12f2c
-*.color9: #fa3935
+*.color6: #d12f2c
+*.color14: #fa3935
 
 ! green
 *.color2:       #8c9440
@@ -60,8 +60,8 @@ URxvt.keysym.C-slash:  font-size:show
 *.color13: #8086e8
 
 ! cyan
-*.color6: #289c93
-*.color14: #33c5ba
+*.color1: #289c93
+*.color9: #33c5ba
 
 ! white
 *.color7: #bfbaac
@@ -86,7 +86,7 @@ URxvt.urgentOnBell: true
 URxvt.iso14755: false
 
 !! Extensions
-URxvt.perl-ext-common:	default,matcher,url-select,keyboard-select,font-size
+URxvt.perl-ext-common:	default,matcher,url-select,keyboard-select,font-size,-confirm-paste
 URxvt.colorUL:		#4682B4
 !! url-select
 URxvt.keysym.M-u:	perl:url-select:select_next
@@ -125,12 +125,12 @@ URxvt.color0: #2E3440
 URxvt.color8: #4C566A
 
 ! red
-URxvt.color1: #88C0D0
-URxvt.color9: #88C0D0
+URxvt.color6: #88C0D0
+URxvt.color14: #88C0D0
 
 ! green
-URxvt.color2:  #BF616A
-URxvt.color10: #BF616A
+URxvt.color1:  #BF616A
+URxvt.color9: #BF616A
 
 ! yellow
 URxvt.color3:  #5E81AC
@@ -145,8 +145,8 @@ URxvt.color5:  #A3BE8C
 URxvt.color13: #A3BE8C
 
 ! cyan
-URxvt.color6:  #D08770
-URxvt.color14: #D08770
+URxvt.color2:  #D08770
+URxvt.color10: #D08770
 
 ! white
 URxvt.color7:  #E5E9F0
