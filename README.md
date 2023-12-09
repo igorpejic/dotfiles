@@ -20,3 +20,11 @@ https://www.vim.org/
 
 ### Backlight
 https://gitlab.com/wavexx/acpilight
+
+
+### Copy paste
+Vim should have +clipboard:
+sudo apt-get intall vim-gtk3
+
+Autocutsel must be running:
+https://unix.stackexchange.com/questions/628492/merge-primary-and-clipboard-x-selections
