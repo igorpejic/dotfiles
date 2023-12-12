@@ -70,12 +70,12 @@
 
  
 # Increase brightness
-# "xbacklight -inc 10"
-#     XF86MonBrightnessUp
+"xbacklight -inc 10"
+    m:0x0 + c:72
 
 # Decrease brightness
-# "xbacklight -dec 10"
-#     XF86MonBrightnessDown
+"xbacklight -dec 10"
+    m:0x0 + c:71
 
 # Increase volume
 "amixer set Master 2%+"
