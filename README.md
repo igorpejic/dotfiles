@@ -21,6 +21,14 @@ https://www.vim.org/
 ### Backlight
 https://gitlab.com/wavexx/acpilight
 
+See /etc/udev/rules.d/90-backlight.rules
+
+`sudo usermod -aG video backlight`
+
+and login-logout.
+(If udev rule does not work, `sudo chgrp /sys/class/backlight/intel_blacklight/brightness`
+
+
 
 ### Copy paste
 Vim should have +clipboard:
@@ -28,3 +36,4 @@ sudo apt-get intall vim-gtk3
 
 Autocutsel must be running:
 https://unix.stackexchange.com/questions/628492/merge-primary-and-clipboard-x-selections
+
