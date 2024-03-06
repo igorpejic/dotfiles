@@ -10,7 +10,7 @@ ZSH_THEME="simple"
 TERMINAL=urxvt
 
 # fixed pdb cannot delete bug
-TERM=xterm
+TERM="xterm-256color"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
