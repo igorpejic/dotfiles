@@ -31,7 +31,10 @@ call plug#begin('~/.vim/plugged')
 
 "Plug 'vim-denops/denops.vim'
 " Plug 'Shougo/ddc.vim'
-Plug 'ycm-core/YouCompleteMe'
+" Plug 'ycm-core/YouCompleteMe'
+"
+Plug 'neoclide/coc.nvim'
+Plug 'noah/vim256-color'
 
 
 Plug 'roxma/nvim-yarp'
@@ -224,7 +227,7 @@ Plug 'prettier/vim-prettier', {
 let g:prettier#autoformat = 0
 autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml Prettier
 
-colorscheme ChocolateLiquor
+color fu
 
 " Matchit already installed in newer versions of vim.
 " Don't need to add this onto pathogen bundle folder. We only need
@@ -272,3 +275,9 @@ function! s:on_lsp_buffer_enabled() abort
     
     " refer to doc to add more commands
 endfunction
+
+" COC
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u breaks current undo, please make your own choice
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
