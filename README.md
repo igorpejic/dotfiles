@@ -37,3 +37,5 @@ sudo apt-get intall vim-gtk3
 Autocutsel must be running:
 https://unix.stackexchange.com/questions/628492/merge-primary-and-clipboard-x-selections
 
+https://github.com/davatorium/rofi
+https://github.com/erebe/greenclip
