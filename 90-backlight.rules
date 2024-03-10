@@ -1,2 +1,0 @@
-# Allow video group to control backlight and leds
-ACTION=="add", SUBSYSTEM=="backlight", KERNEL=="intel_backlight", RUN+="/bin/chgrp backlight /sys/class/backlight/intel_backlight/brightness /sys/class/backlight/intel_backlight/bl_power"
