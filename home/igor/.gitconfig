@@ -1,0 +1,38 @@
+[user]
+	email = igorpejicw@gmail.com
+	name = Igor Pejic
+
+[alias]
+    st = status
+    ci = commit
+    co = checkout
+    find-merge = "!sh -c 'commit=$0 && branch=${1:-HEAD} && (git rev-list $commit..$branch --ancestry-path | cat -n; git rev-list $commit..$branch --first-parent | cat -n) | sort -k2 -s | uniq -f1 -d | sort -n | tail -1 | cut -f2'"
+    show-merge = "!sh -c 'merge=$(git find-merge $0 $1) && [ -n \"$merge\" ] && git show $merge'"
+[diff]
+    tool = icdiff
+    guitool = diffmerge
+[difftool "icdiff"]
+    cmd = icdiff \"$LOCAL\" \"$REMOTE\"
+[difftool "diffmerge"]
+    cmd = diffmerge \"$LOCAL\" \"$REMOTE\"
+[merge]
+    tool = diffmerge
+[mergetool "diffmerge"]
+    cmd = diffmerge --merge --result=\"$MERGED\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"
+    trustexitcode = true
+[color]
+    ui = true
+[core]
+    editor = /usr/bin/vim
+[push]
+    default = simple
+[init]
+	templatedir = ~/.git_template
+[gpg]
+	program = gpg2
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[credential]
