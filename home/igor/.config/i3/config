@@ -168,4 +168,4 @@ bindsym $mod+Shift+p exec "maim -s --format=png /dev/stdout | xclip -selection c
 exec --no-startup-id feh --bg-scale /home/igor/background.png
 # show tray icons on the primary monitor
 
-bindsym Ctrl+Shift+v exec rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
+# bindsym Ctrl+Shift+v exec rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
