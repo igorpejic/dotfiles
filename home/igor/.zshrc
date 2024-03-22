@@ -129,4 +129,4 @@ export PATH="$HOME/.poetry/bin:$PATH"
 # export DJANGO_SETTINGS_MODULE="project.settings.local"
 export PATH="/home/igor/.local/bin:$PATH"
 
-# some env variables might be present in .zshenv
+# NOTE: some env variables might be present in .zshenv
