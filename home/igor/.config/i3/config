@@ -162,7 +162,7 @@ exec_always --no-startup-id xsetroot -solid "#4BABA2"
 exec_always feh --bg-scale /home/igor/background.jpg
 
 # Multi-screen screenshots with scrot
-bindsym $mod+Shift+p exec "maim -s --format=png /dev/stdout | xclip -selection clipboard -t image/png -i"
+bindsym $mod+Shift+p exec "IMG=$(date +%s) && maim -s --format=png > /tmp/$IMG.png && xclip -i /tmp/$IMG.png  -t image/png -selection clipboard"
 
 # background
 exec --no-startup-id feh --bg-scale /home/igor/background.png

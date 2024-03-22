@@ -9,6 +9,10 @@ alias dotfiles='git --git-dir=/home/igor/dotfiles/.git --work-tree=/'
 
 ## Useful tools
 
+# Vim
+
+Install vim-gtk3 for clipboard sharing.
+
 ### Window manager
 
 https://i3wm.org/
