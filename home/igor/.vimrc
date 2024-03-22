@@ -17,7 +17,7 @@ filetype off                  " required
 "highlight link SyntasticWarningSign SignColumn
 "highlight link SyntasticStyleErrorSign SignColumn
 "highlight link SyntasticStyleWarningSign SignColumn
-""""""""""""""""""""""""""" 
+"""""""""""""""""""""""""""
 let g:jsx_ext_required = 0
 
 call plug#begin('~/.vim/plugged')
@@ -107,7 +107,7 @@ set nolist
 set textwidth=0
 set wrapmargin=0
 set incsearch
-set ignorecase 
+set ignorecase
 "set smartcase
 set relativenumber
 syntax on
@@ -126,7 +126,6 @@ let mapleader=" "
 :nnoremap <leader><tab> <C-w><C-w>
 
 set clipboard=unnamedplus
-set clipboard=unnamed
 
 " CtrlP config
 let g:ctrlp_custom_ignore = {
@@ -269,7 +268,7 @@ function! s:on_lsp_buffer_enabled() abort
 
     let g:lsp_format_sync_timeout = 1000
     autocmd! BufWritePre *.rs,*.go call execute('LspDocumentFormatSync')
-    
+
     " refer to doc to add more commands
 endfunction
 
@@ -288,3 +287,7 @@ nmap <silent> gr <Plug>(coc-references)
 " Spell-check Markdown files and Git Commit Messages
 autocmd FileType markdown setlocal spell
 autocmd FileType gitcommit setlocal spell
+
+" Remove all trailing space
+autocmd BufWritePre * :%s/\s\+$//e
+
