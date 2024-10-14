@@ -1,0 +1,13 @@
+{
+    "editor.inlineSuggest.suppressSuggestions": true,
+    "terminal.integrated.allowChords": false,
+    "window.zoomLevel": 2,
+    "cursor.cpp.disabledLanguages": [],
+    "cursor.chat.showSuggestedFiles": true,
+    "terminal.integrated.sendKeybindingsToShell": false,
+    "terminal.integrated.commandsToSkipShell": [
+        "-workbench.action.quickOpen"
+    ],
+    "workbench.action.openNextEditorInGroup": "ctrl+tab",
+    "workbench.action.openPreviousEditorInGroup": "ctrl+shift+tab"
+}
