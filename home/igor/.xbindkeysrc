@@ -39,7 +39,7 @@
 
 # Examples of commands:
 
-"xbindkeys_show" 
+"xbindkeys_show"
   control+shift + q
 
 # set directly keycode (here control + f with my keyboard)
@@ -68,7 +68,7 @@
 
 
 
- 
+
 # Increase brightness
 "xbacklight -inc 10"
     m:0x0 + c:72
@@ -91,6 +91,10 @@
 # Mute microphone
 "amixer set Capture toggle"
     m:0x0 + c:70
+
+# Record with open-ai
+"bash /home/igor/linux-speech-to-text/record.bash"
+    m:0x0 + c:75
 
 ##################################
 # End of xbindkeys configuration #
