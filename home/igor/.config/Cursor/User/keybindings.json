@@ -15,16 +15,25 @@
         "command": "workbench.action.nextEditorInGroup"
     },
     {
+        "key": "tab",
+        "command": "workbench.action.nextEditor",
+        "when": "vim.mode!='Insert'"
+    },
+    {
         "key": "ctrl+shift+tab",
         "command": "workbench.action.previousEditorInGroup"
     },
     {
         "key": "ctrl+j",
-        "command": "workbench.action.terminal.focus"
+        "command": "search.action.focusNextSearchResult",
+        "when": "vim.mode!='Insert'"
     },
     {
-        "key": "ctrl+j",
-        "command": "workbench.action.focusActiveEditorGroup",
-        "when": "terminalFocus"
+        "key": "shift+l",
+        "command": "workbench.action.focusSecondEditorGroup",
+    },
+    {
+        "key": "shift+h",
+        "command": "workbench.action.focusFirstEditorGroup",
     }
 ]
