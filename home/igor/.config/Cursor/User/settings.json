@@ -8,6 +8,16 @@
     "terminal.integrated.commandsToSkipShell": [
         "-workbench.action.quickOpen"
     ],
-    "workbench.action.openNextEditorInGroup": "ctrl+tab",
-    "workbench.action.openPreviousEditorInGroup": "ctrl+shift+tab"
+    "workbench.tree.renderIndentGuides": "always",
+    "workbench.tree.indent": 18,
+    "workbench.colorCustomizations": {
+        "tree.indentGuidesStroke": "#008070",
+        "tab.activeBackground": "#ffffff20"
+    },
+    "editor.wordWrap": "on",
+    "elixirLS.languageServerOverridePath": "/home/igor/.elixir-ls/release/",
+    "vim.normalModeKeyBindingsNonRecursive": [],
+    "vim.leader": "",
+    "editor.lineNumbers": "relative",
+    "editor.formatOnSave": true,
 }
