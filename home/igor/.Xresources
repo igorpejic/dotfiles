@@ -16,8 +16,8 @@ XTerm*internalBorder: 3
 XTerm*loginShell: true
 XTerm*scrollBar: false
 XTerm*scrollKey: true
-XTerm*saveLines: 1000
-XTerm*multiClickTime: 250 
+XTerm*saveLines: 100000
+XTerm*multiClickTime: 250
 
 
 URxvt.keysym.C-0:     font-size:increase
@@ -102,7 +102,7 @@ URxvt.iso14755_52: false
 URxvt.url-launcher:	linkhandler
 URxvt.matcher.button:	1
 
-!! Paste 
+!! Paste
 URxvt.keysym.Control-y: eval:paste_clipboard
 
 rofi.color-enabled:	true
