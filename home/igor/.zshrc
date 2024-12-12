@@ -107,7 +107,18 @@ export XLIB_SKIP_ARGB_VISUALS=1
 
 alias slock="/home/igor/lock.sh"
 alias ni=nvim
-alias la="cd /home/igor/ruther/app && poetry shell"
+alias la="cd /home/igor/riviera-heights.com/app && poetry shell"
+alias ca=la
+alias sb="cd /home/igor/auto-code-rover && conda activate auto-code-rover"
+alias cr=sb
+alias acr=sb
+alias ab="$HOME/agentobspy/backend/ && poetry shell"
+alias af=$HOME/agentobspy/frontend/
+
+alias gs="git status"
+alias gd="git diff"
+alias gc="git commit -m"
+alias gp="git push"
 
 export VISUAL=vim
 export EDITOR="$VISUAL"
@@ -130,3 +141,23 @@ export PATH="$HOME/.poetry/bin:$PATH"
 export PATH="/home/igor/.local/bin:$PATH"
 
 # NOTE: some env variables might be present in .zshenv
+#
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/igor/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/igor/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/igor/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/igor/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
+. $HOME/.asdf/asdf.sh
+
+
