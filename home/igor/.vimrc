@@ -39,10 +39,10 @@ Plug 'prettier/vim-prettier'
 Plug 'lervag/vimtex'
 Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
 Plug 'gabesoft/vim-ags'
-Plug 'heavenshell/vim-pydocstring'
+"Plug 'heavenshell/vim-pydocstring'
 Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-surround'
-Plug 'psf/black'
+Plug 'psf/black', {'branch': 'stable'}
 
 " Plug 'w0rp/ale'
 Plug 'Vimjas/vim-python-pep8-indent'
@@ -56,7 +56,7 @@ Plug 'elixir-editors/vim-elixir'
 
 Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
-Plug 'heavenshell/vim-pydocstring'
+"Plug 'heavenshell/vim-pydocstring'
 "Plug 'alfredodeza/khuno.vim'
 "Bundle "wookiehangover/jshint.vim"
 Plug 'ctrlpvim/ctrlp.vim'
@@ -233,10 +233,10 @@ au FileType html,eruby,rb,css,js,xml runtime! macros/matchit.vim
 
 
 " Black autosave autofix
-"augroup black_on_save
-"  autocmd!
-"  autocmd BufWritePre *.py Black
-"augroup end
+augroup black_on_save
+  autocmd!
+  autocmd BufWritePre *.py Black
+augroup end
 "
 "
 " LSP AUTOCOMPLETION
