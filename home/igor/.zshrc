@@ -161,3 +161,5 @@ unset __conda_setup
 . $HOME/.asdf/asdf.sh
 
 
+
+export PATH="/home/igor/.assemblyai-cli:$PATH"
