@@ -181,7 +181,10 @@ exec --no-startup-id feh --bg-scale /home/igor/background.png
 # Option 2: Using a separate script to handle toggle
 bindsym $mod+b exec /home/igor/projects/clipboard/toggle_follow.sh
 
-# Rofi: greenclip
-# bindsym --release button3 exec --no-startup-id rofi -modi "clipboard:greenclip print" -show clipboard -run-command 'xdotool type {cmd}'
+exec --no-startup-id greenclip daemon
+bindsym $mod+v exec --no-startup-id rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
 
-# bindsym ctrl+v exec --no-startup-id rofi -modi "clipboard:greenclip print" -show clipboard -run-command 'xdotool type {cmd}'
+
+# open window vvv
+bindsym $mod+p exec ~/dotfiles/search_llm.sh
+for_window [instance="FloatingTerm"] floating enable, resize set 1200 700, move position center
