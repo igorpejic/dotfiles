@@ -9,6 +9,7 @@ alias dotfiles='git --git-dir=/home/igor/dotfiles/.git --work-tree=/'
 
 ## Useful tools
 
+
 ### Window manager
 
 https://i3wm.org/
@@ -48,3 +49,6 @@ https://unix.stackexchange.com/questions/628492/merge-primary-and-clipboard-x-se
 
 https://github.com/davatorium/rofi
 https://github.com/erebe/greenclip
+
+- Greenclip
+- Rofi
