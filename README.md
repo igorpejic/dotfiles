@@ -1,14 +1,6 @@
 ## Setup
 
-Dotfiles are managed through process described in:  [1](https://mitxela.com/projects/dotfiles_management), [2](https://www.atlassian.com/git/tutorials/dotfiles)
-
-Key alias is:
-```
-alias dotfiles='git --git-dir=/home/igor/dotfiles/.git --work-tree=/'
-```
-
 ## Useful tools
-
 
 ### Window manager
 
@@ -36,19 +28,18 @@ See /etc/udev/rules.d/90-backlight.rules
 `sudo usermod -aG video backlight`
 
 and login-logout.
-(If udev rule does not work, `sudo chgrp /sys/class/backlight/intel_blacklight/brightness`
+(If udev rule does not work, `sudo chgrp video /sys/class/backlight/intel_backlight/brightness`)
 
 
 
 ### Copy paste
 Vim should have +clipboard:
-sudo apt-get intall vim-gtk3
+sudo apt-get install vim-gtk3
 
 Autocutsel must be running:
 https://unix.stackexchange.com/questions/628492/merge-primary-and-clipboard-x-selections
 
 https://github.com/davatorium/rofi
-https://github.com/erebe/greenclip
 
-- Greenclip
-- Rofi
+https://github.com/erebe/greenclip
+https://github.com/davatorium/rofi
