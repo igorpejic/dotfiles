@@ -158,7 +158,7 @@ exec_always $HOME/.screenlayout/monitor.sh
 
 # startup programs
 exec_always $HOME/dotfiles/startup-programs.sh
-bindsym $mod+Shift+i exec $HOME/startup-programs.sh
+bindsym $mod+Shift+i exec $HOME/dotfiles/startup-programs.sh
 exec_always --no-startup-id xsetroot -solid "#4BABA2"
 exec_always feh --bg-scale /home/igor/background.jpg
 
