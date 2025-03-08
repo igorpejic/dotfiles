@@ -1,5 +1,9 @@
 ## Setup
 
+Important files:
+`~/.zshrc`
+`~/.zshrc.local` - for files specific to that machine
+
 ## Useful tools
 
 ### Window manager

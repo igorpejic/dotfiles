@@ -138,10 +138,9 @@ alias cal=ncal
 
 # Git aliases
 alias gs="git status"
-alias gd="git diff"
+alias gd="git diff HEAD"
 alias gc="git commit -m"
 alias gp="git push"
-alias dotfiles='git --git-dir=/home/igor/dotfiles/.git --work-tree=/'
 
 # Search aliases
 alias ag='ag --hidden --ignore=tags.swp'
