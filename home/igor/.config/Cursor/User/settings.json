@@ -20,4 +20,6 @@
     "vim.leader": "",
     "editor.lineNumbers": "relative",
     "editor.formatOnSave": true,
+    "git.autofetch": true,
+    "vim.useSystemClipboard": true,
 }
