@@ -4,6 +4,16 @@ mods = "Control"
 action = "Paste"
 
 [[keyboard.bindings]]
+key = "y"
+mode = "Vi|~Search"
+action = "ToggleViMode"
+
+[[keyboard.bindings]]
+key = "y"
+mode = "Vi|~Search"
+action = "Copy"
+
+[[keyboard.bindings]]
 key = "Y"
 mods = "Control|Shift"
 action = "None"
