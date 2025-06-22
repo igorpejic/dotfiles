@@ -26,7 +26,7 @@ font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 # start a terminal
-bindsym $mod+Return exec urxvt -cd `xcwd`
+bindsym $mod+Return exec alacritty --working-directory `xcwd`
 # kill focused window
 bindsym $mod+Shift+c kill
 # start dmenu (a program launcher)
@@ -157,7 +157,7 @@ bindcode 123 exec "amixer -D pulse sset Master 1%+"
 exec_always $HOME/.screenlayout/monitor.sh
 
 # startup programs
-exec_always $HOME/dotfiles/startup-programs.sh
+exec_always $HOME/startup-programs.sh
 bindsym $mod+Shift+i exec $HOME/dotfiles/startup-programs.sh
 exec_always --no-startup-id xsetroot -solid "#4BABA2"
 exec_always feh --bg-scale /home/igor/background.jpg

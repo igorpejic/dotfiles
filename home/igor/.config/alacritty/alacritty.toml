@@ -1,0 +1,17 @@
+[[keyboard.bindings]]
+key = "Y"
+mods = "Control"
+action = "Paste"
+
+[[keyboard.bindings]]
+key = "Y"
+mods = "Control|Shift"
+action = "None"
+
+[[keyboard.bindings]]
+key = "J"
+mods = "Control"
+action = "ToggleViMode"
+
+[font]
+size = 14.0
