@@ -1,23 +1,51 @@
+[general]
+# https://github.com/alacritty/alacritty-theme
+import = [
+    "~/.config/alacritty/themes/themes/catppuccin_mocha.toml"
+]
+
 [[keyboard.bindings]]
 key = "Y"
 mods = "Control"
 action = "Paste"
 
-[[keyboard.bindings]]
-key = "y"
-mode = "Vi|~Search"
-action = "ToggleViMode"
-
+# On pressing y in vim mode -
+# copy and close vim mode
 [[keyboard.bindings]]
 key = "y"
 mode = "Vi|~Search"
 action = "Copy"
 
 [[keyboard.bindings]]
+key = "y"
+mode = "Vi|~Search"
+action = "ToggleViMode"
+
+# On pressing p in vim mode -
+# copy and paste immediately and close vim mode
+[[keyboard.bindings]]
+key = "p"
+mode = "Vi|~Search"
+action = "Copy"
+
+[[keyboard.bindings]]
+key = "p"
+mode = "Vi|~Search"
+action = "Paste"
+
+[[keyboard.bindings]]
+key = "p"
+mode = "Vi|~Search"
+action = "ToggleViMode"
+
+
+# unbind default y key behavior
+[[keyboard.bindings]]
 key = "Y"
 mods = "Control|Shift"
 action = "None"
 
+# enter vi mode using ctrl+j
 [[keyboard.bindings]]
 key = "J"
 mods = "Control"
@@ -25,3 +53,6 @@ action = "ToggleViMode"
 
 [font]
 size = 14.0
+
+[selection]
+save_to_clipboard = true
