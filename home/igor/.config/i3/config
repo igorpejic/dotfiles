@@ -188,3 +188,6 @@ bindsym $mod+v exec --no-startup-id rofi -modi "clipboard:greenclip print" -show
 # open window vvv
 bindsym $mod+p exec ~/dotfiles/search_llm.sh
 for_window [instance="FloatingTerm"] floating enable, resize set 1200 700, move position center
+
+# color for focused windows
+client.focused #00C1FF #00C1FF #000088 #00C1FF
