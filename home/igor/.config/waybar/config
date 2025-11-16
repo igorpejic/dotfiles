@@ -1,0 +1,78 @@
+{
+    "spacing": 0,
+    "layer": "top",
+    "modules-left": [
+        "niri/workspaces",
+        "niri/window"
+    ],
+    "modules-right": [
+        "cpu",
+        "memory",
+        "pulseaudio",
+        "network",
+        "clock",
+        "idle_inhibitor",
+        "tray"
+    ],
+
+    "niri/workspaces": {
+        "format": "{index}: {name}",
+        "all-outputs": false
+    },
+
+    "niri/window": {
+        "max-length": 50
+    },
+
+    "clock": {
+        "interval": 1,
+        "format": "{:%Y-%m-%d %H:%M:%S}",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+    },
+
+    "cpu": {
+        "interval": 1,
+        "format": "CPU: {usage}%"
+    },
+
+    "memory": {
+        "interval": 1,
+        "format": "Mem: {percentage}%",
+        "tooltip-format": "Used: {used:0.2f}GiB\nAvailable: {avail:0.2f}GiB\nTotal: {total:0.2f}GiB"
+    },
+
+    "network": {
+        "format-wifi": " ({signalStrength}%) {essid}",
+        "format-ethernet": " {ipaddr}",
+        "tooltip-format": "{ifname} via {gwaddr}\n{ipaddr}/{cidr}",
+        "format-linked": "{ifname} (No IP) ",
+        "format-disconnected": "Disconnected ⚠",
+        "max-length": 30
+    },
+
+    "pulseaudio": {
+        "format": "{icon} {volume}%",
+        "format-bluetooth": "{icon} {volume}%",
+        "format-muted": " {format_source}",
+        "format-source": " {volume}%",
+        "format-source-muted": "",
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "default": ["", "", ""]
+        },
+        "on-click": "pavucontrol"
+    },
+
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "",
+            "deactivated": ""
+        }
+    },
+
+    "tray": {
+        "spacing": 10
+    }
+}
