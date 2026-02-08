@@ -8,6 +8,12 @@ Important files:
 
 ### Window manager
 
+niri
+install quickshell-git to avoid current github issue https://github.com/quickshell-mirror/quickshell/issues/403
+https://danklinux.com/docs/dankmaterialshell/installation
+
+
+Legacy:
 https://i3wm.org/
 https://github.com/schischi/xcwd
 
