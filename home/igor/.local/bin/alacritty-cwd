@@ -1,0 +1,17 @@
+FOCUSED_PID=$(niri msg focused-window 2>/dev/null | grep -oP 'PID: \K\d+')
+CWD=""
+
+if [ -n "$FOCUSED_PID" ]; then
+    CHILD_PID=$(pgrep -P $FOCUSED_PID 2>/dev/null | head -1)
+fi
+
+if [ -n "$CHILD_PID" ]; then
+    CWD=$(readlink -f "/proc/$CHILD_PID/cwd" 2>/dev/null)
+fi
+
+# Spawn alacritty with or without the cwd
+if [ -n "$CWD" ] && [ -d "$CWD" ]; then
+    /home/igor/.cargo/bin/alacritty --working-directory "$CWD"
+else
+    /home/igor/.cargo/bin/alacritty
+fi
