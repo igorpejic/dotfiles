@@ -57,3 +57,9 @@ https://github.com/erebe/greenclip
 https://github.com/davatorium/rofi
 
 
+## Diff with local
+
+To visualize the difference with the local machine:
+```
+git --git-dir=/home/igor/dotfiles/.git --work-tree=/ diff HEAD -- :/home/igor :/etc
+``
