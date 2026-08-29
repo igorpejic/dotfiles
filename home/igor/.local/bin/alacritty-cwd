@@ -2,13 +2,11 @@
 # Open alacritty in the cwd of the focused terminal and, if that terminal has
 # a python virtualenv active, re-activate the same one in the new shell.
 # The venv is handed over via ALACRITTY_VENV, sourced at the end of ~/.zshrc
+# (zshrc resets PATH during startup, so activating any earlier would be undone).
 
-ALACRITTY=/home/igor/.cargo/bin/alacritty
-POETRY_VENVS="$HOME/.cache/pypoetry/virtualenvs"
-WORKON_HOME="${WORKON_HOME:-$HOME/.virtualenvs}"
-
-CWD=""
-VENV=""
+alacritty=/home/igor/.cargo/bin/alacritty
+poetry_venvs="$HOME/.cache/pypoetry/virtualenvs"
+workon_home="${WORKON_HOME:-$HOME/.virtualenvs}"
 
 # Print a pid and all of its descendants, parents first
 descendants() {
@@ -19,12 +17,9 @@ descendants() {
     done
 }
 
-venv_from_environ() {
-    tr '\0' '\n' < "/proc/$1/environ" 2>/dev/null | sed -n 's/^VIRTUAL_ENV=//p' | head -1
-}
-
-# Locate the poetry venv for a project dir without invoking poetry
-# Poetry names env dirs <sanitized-name>-<base64(sha256(realpath))[:8]>-py<minor>.
+# Locate the poetry venv for a project dir without invoking poetry (broken
+# pyenv shims make `poetry env info` unreliable). Poetry names env dirs
+# <sanitized-name>-<base64(sha256(realpath))[:8]>-py<minor>.
 poetry_venv_for() {
     local dir=$1 name prefix
     name=$(sed -n 's/^name[[:space:]]*=[[:space:]]*["'\'']\([^"'\'']*\)["'\''].*/\1/p' "$dir/pyproject.toml" | head -1)
@@ -38,49 +33,50 @@ h = base64.urlsafe_b64encode(hashlib.sha256(normalized.encode()).digest()).decod
 print(f"{sanitized}-{h}")
 EOF
     ) || return
-    ls -td "$POETRY_VENVS/$prefix"-py* 2>/dev/null | head -1
+    ls -td "$poetry_venvs/$prefix"-py* 2>/dev/null | head -1
 }
 
-FOCUSED_PID=$(niri msg focused-window 2>/dev/null | grep -oP 'PID: \K\d+')
+focused_pid=$(niri msg focused-window 2>/dev/null | grep -oP 'PID: \K\d+')
+shell_pid=
+cwd=
+venv=
 
-if [ -n "$FOCUSED_PID" ]; then
-    CHILD_PID=$(pgrep -P "$FOCUSED_PID" 2>/dev/null | head -1)
-fi
+[[ -n $focused_pid ]] && shell_pid=$(pgrep -P "$focused_pid" 2>/dev/null | head -1)
 
-if [ -n "$CHILD_PID" ]; then
-    CWD=$(readlink -f "/proc/$CHILD_PID/cwd" 2>/dev/null)
-    for pid in $(descendants "$CHILD_PID"); do
-        v=$(venv_from_environ "$pid")
-        [ -n "$v" ] && VENV="$v"
+if [[ -n $shell_pid ]]; then
+    cwd=$(readlink -f "/proc/$shell_pid/cwd" 2>/dev/null)
+
+    # A venv activated interactively never shows in the shell's own environ
+    # (it's frozen at exec), but every process started after activation
+    # carries VIRTUAL_ENV. Deepest match = most recent activation.
+    for pid in $(descendants "$shell_pid"); do
+        active_venv=$(tr '\0' '\n' 2>/dev/null < "/proc/$pid/environ" |
+            sed -n 's/^VIRTUAL_ENV=//p' | head -1)
+        [[ -n $active_venv ]] && venv=$active_venv
     done
 fi
 
 # Nothing running in the shell to read VIRTUAL_ENV from: infer the venv from
 # the cwd instead, walking upwards like ave() does.
-if [ -z "$VENV" ] && [ -n "$CWD" ]; then
-    dir="$CWD"
-    while [ -n "$dir" ] && [ "$dir" != "/" ]; do
-        if [ -f "$dir/.venv/bin/activate" ]; then
-            VENV="$dir/.venv"
-        elif [ -f "$dir/bin/activate" ]; then
-            VENV="$dir"
-        elif [ -f "$WORKON_HOME/$(basename "$dir")/bin/activate" ]; then
-            VENV="$WORKON_HOME/$(basename "$dir")"
-        elif [ -f "$dir/pyproject.toml" ]; then
-            VENV=$(poetry_venv_for "$dir")
+if [[ -z $venv && -n $cwd ]]; then
+    dir=$cwd
+    while [[ $dir != / ]]; do
+        if [[ -f $dir/.venv/bin/activate ]]; then
+            venv=$dir/.venv
+        elif [[ -f $dir/bin/activate ]]; then
+            venv=$dir
+        elif [[ -f $workon_home/${dir##*/}/bin/activate ]]; then
+            venv=$workon_home/${dir##*/}
+        elif [[ -f $dir/pyproject.toml ]]; then
+            venv=$(poetry_venv_for "$dir")
         fi
-        [ -n "$VENV" ] && break
+        [[ -n $venv ]] && break
         dir=$(dirname "$dir")
     done
 fi
 
-[ -f "$VENV/bin/activate" ] || VENV=""
+args=()
+[[ -d $cwd ]] && args+=(--working-directory "$cwd")
+[[ -n $venv && -f $venv/bin/activate ]] && export ALACRITTY_VENV=$venv
 
-ARGS=()
-[ -n "$CWD" ] && [ -d "$CWD" ] && ARGS+=(--working-directory "$CWD")
-
-if [ -n "$VENV" ]; then
-    ALACRITTY_VENV="$VENV" exec "$ALACRITTY" "${ARGS[@]}"
-else
-    exec "$ALACRITTY" "${ARGS[@]}"
-fi
+exec "$alacritty" "${args[@]}"
