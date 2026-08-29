@@ -11,7 +11,7 @@ TERMINAL=urxvt
 # Uncomment to use case-sensitive completion.
 # CASE_SENSITIVE="true"
 
-# Uncomment to use hyphen-insensitive completion. 
+# Uncomment to use hyphen-insensitive completion.
 # HYPHEN_INSENSITIVE="true"
 
 # Uncomment to disable bi-weekly auto-update checks.
@@ -158,3 +158,10 @@ alias ag='ag --hidden --ignore=tags.swp'
 
 # Load local config
 source $HOME/.zshrc.local
+
+# Re-activate the venv inherited from the previous terminal (set by
+# ~/.local/bin/alacritty-cwd). Must run after the PATH exports above.
+if [[ -n "$ALACRITTY_VENV" && -f "$ALACRITTY_VENV/bin/activate" ]]; then
+    source "$ALACRITTY_VENV/bin/activate"
+    unset ALACRITTY_VENV
+fi

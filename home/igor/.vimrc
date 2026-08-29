@@ -35,7 +35,7 @@ Plug 'noah/vim256-color'
 
 
 Plug 'roxma/nvim-yarp'
-Plug 'prettier/vim-prettier'
+Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 Plug 'lervag/vimtex'
 Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
 Plug 'gabesoft/vim-ags'
@@ -63,6 +63,10 @@ Plug 'ctrlpvim/ctrlp.vim'
 call plug#end()
 
 filetype plugin indent on    " required
+
+" Use the Prettier bundled with vim-prettier. This avoids relying on the
+" editor's PATH (which is often different when Vim is launched graphically).
+let g:prettier#exec_cmd_path = expand('~/.vim/plugged/vim-prettier/node_modules/.bin/prettier')
 
 let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
 inoremap jk 
@@ -216,12 +220,11 @@ let g:vimtex_matchparen_enabled=0
 "let g:tex_flavor = 'context'
 let g:vimtex_view_method = 'mupdf'
 
-" post install (yarn install | npm install) then load plugin only for editing supported files
-Plug 'prettier/vim-prettier', {
-  \ 'do': 'yarn install',
-  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml'] }
 let g:prettier#autoformat = 0
-autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml Prettier
+augroup prettier_autoformat
+  autocmd!
+  autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml if executable(g:prettier#exec_cmd_path) | Prettier | endif
+augroup END
 
 color seoul256
 
@@ -290,4 +293,3 @@ autocmd FileType gitcommit setlocal spell
 
 " Remove all trailing space
 autocmd BufWritePre * :%s/\s\+$//e
-

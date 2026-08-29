@@ -1,17 +1,86 @@
-FOCUSED_PID=$(niri msg focused-window 2>/dev/null | grep -oP 'PID: \K\d+')
+#!/usr/bin/env bash
+# Open alacritty in the cwd of the focused terminal and, if that terminal has
+# a python virtualenv active, re-activate the same one in the new shell.
+# The venv is handed over via ALACRITTY_VENV, sourced at the end of ~/.zshrc
+
+ALACRITTY=/home/igor/.cargo/bin/alacritty
+POETRY_VENVS="$HOME/.cache/pypoetry/virtualenvs"
+WORKON_HOME="${WORKON_HOME:-$HOME/.virtualenvs}"
+
 CWD=""
+VENV=""
+
+# Print a pid and all of its descendants, parents first
+descendants() {
+    echo "$1"
+    local child
+    for child in $(pgrep -P "$1" 2>/dev/null); do
+        descendants "$child"
+    done
+}
+
+venv_from_environ() {
+    tr '\0' '\n' < "/proc/$1/environ" 2>/dev/null | sed -n 's/^VIRTUAL_ENV=//p' | head -1
+}
+
+# Locate the poetry venv for a project dir without invoking poetry
+# Poetry names env dirs <sanitized-name>-<base64(sha256(realpath))[:8]>-py<minor>.
+poetry_venv_for() {
+    local dir=$1 name prefix
+    name=$(sed -n 's/^name[[:space:]]*=[[:space:]]*["'\'']\([^"'\'']*\)["'\''].*/\1/p' "$dir/pyproject.toml" | head -1)
+    [ -n "$name" ] || return
+    prefix=$(/usr/bin/python3 - "$name" "$dir" <<'EOF'
+import base64, hashlib, os, re, sys
+name, cwd = sys.argv[1], sys.argv[2]
+sanitized = re.sub(r'[ $`!*@"\\\r\n\t]', "_", name.lower())[:42]
+normalized = os.path.normcase(os.path.realpath(cwd))
+h = base64.urlsafe_b64encode(hashlib.sha256(normalized.encode()).digest()).decode()[:8]
+print(f"{sanitized}-{h}")
+EOF
+    ) || return
+    ls -td "$POETRY_VENVS/$prefix"-py* 2>/dev/null | head -1
+}
+
+FOCUSED_PID=$(niri msg focused-window 2>/dev/null | grep -oP 'PID: \K\d+')
 
 if [ -n "$FOCUSED_PID" ]; then
-    CHILD_PID=$(pgrep -P $FOCUSED_PID 2>/dev/null | head -1)
+    CHILD_PID=$(pgrep -P "$FOCUSED_PID" 2>/dev/null | head -1)
 fi
 
 if [ -n "$CHILD_PID" ]; then
     CWD=$(readlink -f "/proc/$CHILD_PID/cwd" 2>/dev/null)
+    for pid in $(descendants "$CHILD_PID"); do
+        v=$(venv_from_environ "$pid")
+        [ -n "$v" ] && VENV="$v"
+    done
 fi
 
-# Spawn alacritty with or without the cwd
-if [ -n "$CWD" ] && [ -d "$CWD" ]; then
-    /home/igor/.cargo/bin/alacritty --working-directory "$CWD"
+# Nothing running in the shell to read VIRTUAL_ENV from: infer the venv from
+# the cwd instead, walking upwards like ave() does.
+if [ -z "$VENV" ] && [ -n "$CWD" ]; then
+    dir="$CWD"
+    while [ -n "$dir" ] && [ "$dir" != "/" ]; do
+        if [ -f "$dir/.venv/bin/activate" ]; then
+            VENV="$dir/.venv"
+        elif [ -f "$dir/bin/activate" ]; then
+            VENV="$dir"
+        elif [ -f "$WORKON_HOME/$(basename "$dir")/bin/activate" ]; then
+            VENV="$WORKON_HOME/$(basename "$dir")"
+        elif [ -f "$dir/pyproject.toml" ]; then
+            VENV=$(poetry_venv_for "$dir")
+        fi
+        [ -n "$VENV" ] && break
+        dir=$(dirname "$dir")
+    done
+fi
+
+[ -f "$VENV/bin/activate" ] || VENV=""
+
+ARGS=()
+[ -n "$CWD" ] && [ -d "$CWD" ] && ARGS+=(--working-directory "$CWD")
+
+if [ -n "$VENV" ]; then
+    ALACRITTY_VENV="$VENV" exec "$ALACRITTY" "${ARGS[@]}"
 else
-    /home/igor/.cargo/bin/alacritty
+    exec "$ALACRITTY" "${ARGS[@]}"
 fi
